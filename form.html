@@ -1,0 +1,321 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+    <!-- <link rel="stylesheet" href="/css/style.css"> -->
+    <style>
+        @import url(https://fonts.googleapis.com/css?family=Poppins:100,100italic,200,200italic,300,300italic,regular,italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic);
+        @import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+        * { 
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins';
+        }
+        body {
+            height: 100vh;
+            background: url(./images/form.png) no-repeat center center;
+            background-size: cover;
+        }
+        
+        /* Desktop view */
+        form{
+            height: 650px; width: 500px;
+            background: #eee;
+            padding: 10px;
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        form h1{
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 24px;
+        }
+        form .user-input{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 0 20px;
+        }
+        form input,
+        textarea,
+        select, date {
+            height: 35px;
+            width: 100%;
+            /* border-radius: 6px; */
+            background: #ddd;
+            color: #717171;
+            border: none;
+            outline: none;
+            padding: 0 18px;
+            transition: border-color 0.2s; 
+        }
+        form textarea {
+            padding: 10px 20px;
+        }
+
+        form .error-msg {
+            width: 80%;
+            margin-top: 5px;
+            font-size: 13px;
+            min-height: 20px;
+            color: transparent;
+            position: relative;
+            transform: translateX(-40px);
+        }
+        form .button{
+            display: flex;
+            flex-direction: row-reverse;
+            margin: 0 15px;
+        }
+        form .button a{ 
+            text-decoration: none;   
+            padding: 4px 14px;
+            background: #c3c3c3;
+            font-size: 15px;
+            color: black;
+        }
+        form .button a:hover{ 
+            background: #890707;
+            color: #ddd;
+        }
+        form button{
+            padding: 4px 14px;
+            border: none;
+            background: #c3c3c3;
+            margin: 0 8px;
+        }
+        form button:hover{
+            background: #008000;
+            color: #fff;
+        }
+        form #backBtn:hover{
+            background: #8b0000;
+            color: #fff;
+        }
+        /* Mobile view */
+        @media screen and (max-width: 767px) {
+            body {
+                height: 100vh; 
+                background-size: cover; 
+            }
+            form {
+                height: 650px; 
+                width: 370px; 
+                padding: 15px; 
+                position: absolute;
+                top: 50%; 
+                left: 50%;
+                transform: translate(-50%, -50%); 
+            }
+            form h1 {
+                font-size: 20px; 
+            }
+            form .user-input {
+                padding: 0 10px; 
+            }
+            form textarea {
+                padding: 5px 10px; 
+            }
+            form .error-msg {
+                width: 80%;
+                margin-top: 5px;
+                font-size: 13px;
+                min-height: 20px;
+                color: transparent;
+                position: relative;
+                transform: translateX(-20px);
+            }
+            form .button {
+                display: flex;
+                flex-direction: row; 
+                margin: 0 10px;
+            }
+        }
+    </style>
+    <title>Feedback Form</title>
+</head> 
+ <body>
+    <div class="feedbackForm">
+    <form id="feedback-form" action="/submit" method="POST"> 
+        <!--Header-->
+        <h1 class="header-text">Feedback Form</h1>
+        
+        <!--Input Fields-->
+        <!--UName-->
+        <div class="user-input"> 
+            <!-- <label for="uname">Username:</label>  -->
+            <input type="text" id="uname" name="username" placeholder="Your Name.." > 
+            <span id="username-error-msg" class="error-msg"></span>
+        </div> 
+
+        <!--Email-->
+        <div class="user-input">  
+            <!-- <label for="email">Mail Id:</label>  -->
+            <input type="email" id="mail" name="mailid" placeholder="Your Mail id.." > 
+            <div id="mailid-error-msg" class="error-msg"></div>
+        </div>
+
+        <div class="user-input"> 
+            <!-- <label for="date">Date:</label>  -->
+            <input type="date" id="date" name="date" placeholder="" >
+            <div id="date-error-msg" class="error-msg"></div> 
+        </div>
+
+        <!--From-->
+        <div class="user-input"> 
+            <!-- <label>FROM:</label>  -->
+            <input type="text" id="pickup" name="from" placeholder="Place to Take of.." > 
+            <div id="from-error-msg" class="error-msg"></div>
+        </div> 
+
+        <!--To-->
+        <div class="user-input"> 
+            <!-- <label>TO:</label>  -->
+            <input type="text" id="drop" name="to" placeholder="Boarding Place.." > 
+            <div id="to-error-msg" class="error-msg"></div>
+        </div> 
+
+        <!--Ur Country-->
+        <div class="user-input"> 
+            <!-- <label for="country">Country</label>  -->
+            
+            <select id="country" name="country"> 
+            <option value="none">Select Country</option> 
+            <option value="australia">Australia</option> 
+            <option value="canada">Canada</option> 
+            <option value="usa">USA</option> 
+            <option value="russia">Russia</option> 
+            <option value="japan">Japan</option> 
+            <option value="india">India</option> 
+            <option value="china">China</option> 
+        </select>
+        <div id="country-error-msg" class="error-msg"></div>
+        </div> 
+
+        <!--Feedback-->
+        <div class="user-input"> 
+            <!-- <label for="feedback">Feed Back:</label>  -->
+            <textarea id="feedbackText" name="feedback" placeholder="Write something.." style="height:80px" ></textarea>
+            <div id="feedback-error-msg" class="error-msg"></div>
+        </div>
+
+        <!--Button-->
+        <div class="button"> 
+            <button type="submit" id="btnSubmit">Submit</button> 
+            <a href="./index.html">Back</a>
+        </div> 
+        </form>
+    </div> 
+    <script>
+        document.getElementById("feedback-form").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent the form from submitting by default
+            validateForm(); // Validate the form fields
+        });
+
+        function validateForm() {
+            // Grab input values
+            const uName = document.querySelector('#uname');
+            const dateInput = document.querySelector('#date');
+            const mailID = document.querySelector('#mail');
+            const from = document.querySelector('#pickup');
+            const to = document.querySelector('#drop');
+            const country = document.querySelector('#country');
+            const feedback = document.querySelector('#feedbackText');
+
+            // Error message elements
+            const uname_errorMsg = document.querySelector('#username-error-msg');
+            const date_errorMsg = document.querySelector('#date-error-msg');
+            const mail_errorMsg = document.querySelector('#mailid-error-msg');
+            const from_errorMsg = document.querySelector('#from-error-msg');
+            const to_errorMsg = document.querySelector('#to-error-msg');
+            const country_errorMsg = document.querySelector('#country-error-msg');
+            const feedback_errorMsg = document.querySelector('#feedback-error-msg');
+
+            // Name validation
+            if (uName.value.trim() === '') {
+                uName.style.border = "1px solid #8b0000";
+                uname_errorMsg.innerHTML = "Name cannot be blank";
+                uname_errorMsg.style.color = "#8b0000";
+            } else {
+                uName.style.border = "1px solid #008000";
+                uname_errorMsg.innerHTML = '';
+            }
+
+            // Date validation
+            if (dateInput.value.trim() === '') {
+                dateInput.style.border = "1px solid #8b0000";
+                date_errorMsg.innerHTML = "Date cannot be blank";
+                date_errorMsg.style.color = "#8b0000";
+            } else {
+                dateInput.style.border = "1px solid #008000";
+                date_errorMsg.innerHTML = '';
+            }
+
+            // Mail ID validation
+            if (mailID.value.trim() === '') {
+                mailID.style.border = "1px solid #8b0000";
+                mail_errorMsg.innerHTML = "Mail ID cannot be blank";
+                mail_errorMsg.style.color = "#8b0000";
+            } else {
+                mailID.style.border = "1px solid #008000";
+                mail_errorMsg.innerHTML = '';
+            }
+
+            // "From" validation
+            if (from.value.trim() === '') {
+                from.style.border = "1px solid #8b0000";
+                from_errorMsg.innerHTML = "Cannot be blank";
+                from_errorMsg.style.color = "#8b0000";
+            } else {
+                from.style.border = "1px solid #008000";
+                from_errorMsg.innerHTML = '';
+            }
+
+            // "To" validation
+            if (to.value.trim() === '') {
+                to.style.border = "1px solid #8b0000";
+                to_errorMsg.innerHTML = "Cannot be blank";
+                to_errorMsg.style.color = "#8b0000";
+            } else {
+                to.style.border = "1px solid #008000";
+                to_errorMsg.innerHTML = '';
+            }
+
+            // Country validation
+            if (country.value === "none") {
+                country_errorMsg.innerHTML = "Please select a country";
+                country_errorMsg.style.color = "#8b0000";
+            } else {
+                country_errorMsg.innerHTML = '';
+            }
+
+            // Feedback validation
+            if (feedback.value.trim() === '') {
+                feedback.style.border = "1px solid #8b0000";
+                feedback_errorMsg.innerHTML = "Feedback cannot be blank";
+                feedback_errorMsg.style.color = "#8b0000";
+            } else {
+                feedback.style.border = "1px solid #008000";
+                feedback_errorMsg.innerHTML = '';
+            }
+
+            // Submit the form if all validations are passed
+            if (valid) {
+                submitForm();
+            }
+        }
+
+        function submitForm() {
+            alert('Form submitted successfully!');
+            document.getElementById("feedback-form").submit(); // Submits the form to its action endpoint
+        }
+
+    </script>
+</body> 
+</html> 
