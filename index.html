@@ -138,11 +138,12 @@
 
         /* TESTIMONIAL */
         .testimonial{
-            height: 100vh;
+            height: 100%;
             width: 100%;
             background: #16171b;
             color: #fff;
-            padding: 150px 0;
+            padding: 70px 0;
+            position: relative;
         }
         .testimonial h1{
             text-align: center;
@@ -159,7 +160,7 @@
             align-items: center;
         }
         .testimonial .review{
-            height: 200px;                                                                                                                                                                                                                                                                                                                         
+            height: 240px;                                                                                                                                                                                                                                                                                                                         
             width: 450px;
             background: #191a1e;
             box-shadow: 2px 2px 8px #141417;
@@ -295,6 +296,7 @@
             .testimonial{
                 height: 100%;
                 padding: 20px 0;
+                position: relative;
             }
             .testimonial h1{
                 font-size: 22px;
@@ -311,13 +313,12 @@
                 justify-content: space-around;
                 align-items: center;
             }
-            .testimonial .review{
-                height: 200px;                                                                                                                                                                                                                                                                                                                         
+            .testimonial .review{                                                                                                                                                                                                                                                                                                                        
                 width: 450px;
                 background: #191a1e;
                 box-shadow: 2px 2px 8px #141417;
                 border-radius: 12px;
-                padding: 20px 30px;
+                padding: 15px 30px;
                 margin: 15px 0;
             }
             .testimonial #feedback{
@@ -383,7 +384,6 @@
             </div>
         </nav>
     </div>
-
     <!-- Container -->
     <div class="container">
         <!-- Home Module -->
@@ -435,7 +435,7 @@
             <h2 id="recent-feeds">Recent Feedbacks</h2>
             <div class="reviews">
                 <!-- Script code will be here -->
-                <div class="review">
+                <!-- <div class="review">
                     <h3>Raja</h3>
                     <p>22 Apr 2023</p>
                     <div class="from-to">
@@ -467,7 +467,7 @@
                     </div>
                     <h3>India</h3>
                     <p>Travelling experience was good</p>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
@@ -523,43 +523,39 @@
             navList.style.display = 'none';
             navBtn.style.display = 'none';
         });
-        // fetch('/users') // Fetch data from the correct endpoint
-        //     .then((res) => {
-        //         if (!res.ok) {
-        //             throw new Error(`HTTP error! status: ${res.status}`); // Error handling
-        //         }
-        //         return res.json(); // Parse the response as JSON
-        //     })
-        //     .then((data) => {
-        //         console.log('Fetched data from server:', data);
 
-        //         // Process and display the fetched data
-        //         reviews.innerHTML = ''; // Clear existing content
+        fetch('./data/data.json')
+        .then(res => res.json())
+        .then( data => {
+            console.log('Data fetched:', data);
+            let latestData;
+            
+            if (window.innerWidth < 768) { // Mobile view
+                latestData = data.slice(-3); // Display last 3 items
+            } else { // Desktop view
+                latestData = data.slice(-6); // Display last 6 items
+            }
 
-        //         if (data.length === 0) {
-        //             reviews.innerHTML = '<p>No reviews available.</p>';
-        //         } else {
-        //             data.forEach((item) => {
-        //                 reviews.innerHTML += `
-        //                 <div class="review">
-        //                     <h3>${item.Name}</h3>
-        //                     <p>${item.Travelled_date}</p>
-        //                     <div class="from-to">
-        //                         <p>${item.From}</p>
-        //                         <img src="./images/left-right-arrows.png" height="35px" width="35px">
-        //                         <p>${item.To}</p>
-        //                     </div>
-        //                     <h3>${item.Country}</h3>
-        //                     <p>${item.Feedback}</p>
-        //                 </div>
-        //                 `;
-        //             });
-        //         }
-        //     })
-        //     .catch((err) => {
-        //         console.error('Error fetching data:', err);
-        //         reviews.innerHTML = '<p>Unable to fetch data. Please try again later.</p>'; // Error message for users
-        //     });
+            console.log('Latest data:', latestData);
+            latestData.forEach(item => {
+                reviews.innerHTML += `
+                <div class = "review">
+                    <h3 id="username">${item["First Name"]}</h3>
+                    <p id="date">${item["Last Name"]}</p> <!-- If this is a date -->
+                    <div class="from-to">
+                        <p id="from">${item["From"]}</p>
+                        <img src="./images/left-right-arrows.png" id="arrows" height="35px" width="35px">
+                        <p id="to">${item["To"]}</p>
+                    </div>
+                    <h3 id="country">${item["Country"]}</h3>
+                    <p id="feedback">${item["Feedback"]}</p>
+                </div>
+                `;
+            });
+        })
+        .catch(err => {
+            console.log('Error loading testimonials:', err);
+        });
     </script>
 </body>
 </html>
